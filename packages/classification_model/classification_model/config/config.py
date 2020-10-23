@@ -9,6 +9,7 @@ DATASET_DIR = PACKAGE_ROOT / "datasets"
 
 # data
 DATA_FILE = "german_columns.csv"
+TESTING_DATA_FILE = "test.csv"
 TARGET = 'customer_classification'
 
 
