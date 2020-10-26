@@ -1,0 +1,18 @@
+Metadata-Version: 2.1
+Name: classification-model
+Version: 0.1.0
+Summary: Train and deploy classification model.
+Home-page: https://github.com/RamoDataScience/Deployment_Demo
+Author: Azzouz Omar Zayen
+Author-email: azzouz.omar.zayen@gmail.com
+License: MIT
+Description: Train and deploy classification model.
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Requires-Python: >=3.8.3
+Description-Content-Type: text/markdown
