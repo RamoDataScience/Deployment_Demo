@@ -4,6 +4,7 @@ from sklearn.preprocessing import MinMaxScaler
 from imblearn.under_sampling import RepeatedEditedNearestNeighbours
 
 from classification_model.processing import preprocessors as pp
+from classification_model.processing import features
 from classification_model.config import config
 
 
@@ -24,7 +25,7 @@ price_pipe = Pipeline(
             pp.CategoricalEncoder(variables=config.CATEGORICAL_VARS)),
          
         ('log_transformer',
-            pp.LogTransformer(variables=config.NUMERICALS_LOG_VARS)),
+            features.LogTransformer(variables=config.NUMERICALS_LOG_VARS)),
          
         ('scaler', MinMaxScaler()),
 
