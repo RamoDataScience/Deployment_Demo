@@ -17,3 +17,6 @@ def create_app(*, config_object) -> Flask:
     _logger.debug('Application instance created')
 
     return flask_app
+
+
+
