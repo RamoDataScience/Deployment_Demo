@@ -8,4 +8,4 @@ imblearn==0.0
 joblib==0.17.0
 
 # testing requirements
-pytest==6.1.1
+pytest
