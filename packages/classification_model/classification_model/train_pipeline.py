@@ -4,6 +4,13 @@ from sklearn.metrics import fbeta_score
 from classification_model import pipeline
 from classification_model.processing.data_management import load_dataset, save_pipeline, save_testset
 from classification_model.config import config
+from classification_model import __version__ as _version
+
+import logging
+
+
+_logger = logging.getLogger(__name__)
+
 
 
 def run_training():
@@ -24,6 +31,7 @@ def run_training():
 
     pipeline.price_pipe.fit(X_train[config.FEATURES], y_train)
 
+    _logger.info(f"saving model version: {_version}")
     save_pipeline(pipeline_to_persist=pipeline.price_pipe)
 
     pred = pipeline.price_pipe.predict(X_train[config.FEATURES])

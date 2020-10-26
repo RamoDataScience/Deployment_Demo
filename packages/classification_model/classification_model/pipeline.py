@@ -7,6 +7,11 @@ from classification_model.processing import preprocessors as pp
 from classification_model.processing import features
 from classification_model.config import config
 
+import logging
+
+
+_logger = logging.getLogger(__name__)
+
 
 price_pipe = Pipeline(
       [   
