@@ -1,6 +1,9 @@
 # api
 flask==1.1.2
 
+# schema validation
+marshmallow
+
 # local classification_model package
 # update with your local path
 -e "/Users/azzouz/Documents/Deployment_Demo/packages/classification_model"
