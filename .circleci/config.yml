@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  aws-s3: circleci/aws-s3@2.0.0
+
 jobs:
   test_classification_model:
     working_directory: ~/project
@@ -16,6 +19,11 @@ jobs:
             pip install --upgrade pip
             pip install -r packages/classification_model/requirements.txt
             py.test -vv packages/classification_model/tests
+
+      - aws-s3/copy:
+          arguments: '--dryrun'
+          from: 's3://deployment-demo-bnc/training-dataset/german_columns.csv'
+          to: packages/classification_model/classification_model/datasets/
 
 workflows:
   version: 2.1
