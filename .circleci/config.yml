@@ -21,7 +21,7 @@ jobs:
 
       - aws-s3/copy:
           arguments: '--dryrun'
-          from: 's3://deployment-demo-bnc/training-dataset/german_columns.csv'
+          from: 'deployment-demo-bnc/training-dataset/german_columns.csv'
           to: 'packages/classification_model/regression_model/datasets/'
 
       - run:
@@ -34,3 +34,4 @@ workflows:
   test-all:
     jobs:
       - test_classification_model
+
