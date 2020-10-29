@@ -17,6 +17,11 @@ DATA_FILE = "german_columns.csv"
 TESTING_DATA_FILE = "test.csv"
 TARGET = 'customer_classification'
 
+# all variables
+All_VARS = ['checking_account', 'duration_in_month', 'credit_history', 'purpose', 'credit_amount', 'Savings_account_bonds',
+            'present_employment_since', 'rate_revenu', 'personal_status_sex', 'debtors_guarantors', 'present_residence_since',
+            'Property', 'age_years', 'other_installment_plans', 'housing', 'Number_credits_bank', 'job', 'Number_people_liable',
+            'telephone' , 'foreign_worker']
 
 # variables
 FEATURES = ['checking_account', 'duration_in_month', 'credit_history', 'purpose', 'Savings_account_bonds',

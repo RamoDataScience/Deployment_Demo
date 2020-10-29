@@ -5,9 +5,6 @@ from sklearn.base import BaseEstimator, TransformerMixin
 from classification_model.processing.errors import InvalidModelInputError
 
 
-# from imblearn.under_sampling import RepeatedEditedNearestNeighbours
-
-
 # categorical missing value imputer
 class CategoricalImputer(BaseEstimator, TransformerMixin):
     """Categorical data missing value imputer."""
