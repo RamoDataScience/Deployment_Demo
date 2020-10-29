@@ -10,13 +10,6 @@ jobs:
       - image: circleci/python:3.8.3
     steps:
       - checkout
-      - run:
-          name: Setup test env
-          command: |
-            virtualenv venv
-            . venv/bin/activate
-            pip install --upgrade pip
-            pip install -r packages/classification_model/requirements.txt
 
       - aws-s3/copy:
           arguments: '--dryrun'
@@ -26,6 +19,10 @@ jobs:
       - run:
           name: Runnning tests
           command: |
+            virtualenv venv
+            . venv/bin/activate
+            pip install --upgrade pip
+            pip install -r packages/classification_model/requirements.txt
             py.test -vv packages/classification_model/tests
 
 
@@ -35,13 +32,6 @@ jobs:
       - image: circleci/python:3.8.3
     steps:
       - checkout
-      - run:
-          name: Setup test env
-          command: |
-            virtualenv venv
-            . venv/bin/activate
-            pip install --upgrade pip
-            pip install -r packages/ml_api/requirements.txt
 
       - aws-s3/copy:
           arguments: '--dryrun'
@@ -51,6 +41,10 @@ jobs:
       - run:
           name: Runnning tests
           command: |
+            virtualenv venv
+            . venv/bin/activate
+            pip install --upgrade pip
+            pip install -r packages/ml_api/requirements.txt
             py.test -vv packages/ml_api/tests
 
 
@@ -76,7 +70,7 @@ jobs:
           name: Publish model
           command: |
             . venv/bin/activate
-            PYTHONPATH=./packages/regression_model python3 packages/classification_model/classification_model/train_pipeline.py
+            PYTHONPATH=./packages/classification_model python3 packages/classification_model/classification_model/train_pipeline.py
             python3 packages/classification_model/setup.py sdist bdist_wheel
 
       - aws-s3/copy:
