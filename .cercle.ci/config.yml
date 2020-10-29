@@ -85,7 +85,7 @@ jobs:
           to: 's3://deployment-demo-bnc/classification-model-package/'
 
 workflows:
-  version: 2
+  version: 2.1
   test-all:
     jobs:
       - test_regression_model
