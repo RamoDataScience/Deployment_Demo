@@ -1,13 +1,12 @@
 from marshmallow import Schema, fields
 from marshmallow import ValidationError
-import json
+
 import typing as t
 
-# class InvalidInputError(Exception):
-#     """Invalid model input."""
+class InvalidInputError(Exception):
+    """Invalid model input."""
 
-
-class ClassificationDataRequestSchema(Schema):
+class ClassificationDataRequestSchemaTest(Schema):
     checking_account = fields.Str()
     duration_in_month = fields.Integer()
     credit_history = fields.Str()
@@ -29,6 +28,30 @@ class ClassificationDataRequestSchema(Schema):
     telephone = fields.Str()
     foreign_worker = fields.Str()
 
+
+class ClassificationDataRequestSchema(Schema):
+    checking_account = fields.Str()
+    duration_in_month = fields.Integer()
+    credit_history = fields.Str()
+    purpose = fields.Str()
+    Savings_account_bonds = fields.Str()
+    present_employment_since = fields.Str()
+    rate_revenu = fields.Integer()
+    personal_status_sex = fields.Str()
+    debtors_guarantors = fields.Str()
+    Property = fields.Str()
+    age_years = fields.Integer()
+    other_installment_plans = fields.Str()
+    housing = fields.Str()
+    telephone = fields.Str()
+    foreign_worker = fields.Str()
+
+FEATURES = ['checking_account', 'duration_in_month', 'credit_history', 'purpose', 'Savings_account_bonds',
+            'present_employment_since', 'rate_revenu', 'personal_status_sex', 'debtors_guarantors', 'Property',
+            'age_years', 'other_installment_plans', 'housing', 'telephone', 'foreign_worker']
+
+
+
 def _filter_error_rows(errors: dict, validated_input: t.List[dict]) -> t.List[dict]:
     """Remove input data rows with errors."""
 
@@ -41,11 +64,16 @@ def _filter_error_rows(errors: dict, validated_input: t.List[dict]) -> t.List[di
     return validated_input
 
 
-def validate_inputs(input_data):
+def validate_inputs(input_data, label):
     """Check prediction inputs against schema."""
 
+    if label == 'test':
     # set many=True to allow passing in a list
-    schema = ClassificationDataRequestSchema(many=True)
+        schema = ClassificationDataRequestSchemaTest(many=True)
+
+    else:
+        schema = ClassificationDataRequestSchema(many=True)
+
 
     errors = None
     try:

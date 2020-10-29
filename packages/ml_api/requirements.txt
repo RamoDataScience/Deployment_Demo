@@ -2,7 +2,7 @@
 flask==1.1.2
 
 # schema validation
-marshmallow
+marshmallow==3.8.0
 
 # local classification_model package
 # update with your local path
