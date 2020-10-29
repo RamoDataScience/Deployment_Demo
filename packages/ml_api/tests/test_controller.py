@@ -30,7 +30,7 @@ def test_prediction_endpoint_returns_prediction(flask_test_client):
     # data versions to get confused by not spreading it
     # across packages.
     test_data = load_dataset(file_name=model_config.TESTING_DATA_FILE, label='test')
-    post_json = test_data.to_json(orient='records')
+    post_json = test_data[0:1].to_json(orient='records')
 
     # When
     response = flask_test_client.post('/v1/predict/classification', json=json.loads(post_json))

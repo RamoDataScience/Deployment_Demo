@@ -18,7 +18,7 @@ prediction_app = Blueprint('prediction_app', __name__)
 
 @prediction_app.route('/')
 def home():
-    return render_template("index3.html")
+    return render_template("index.html")
 
 
 @prediction_app.route('/health', methods=['GET'])
@@ -84,6 +84,4 @@ def predict():
         predicted_value = 'bad costumer'
 
     # Step 6: Rendering results on HTML GUI
-    return render_template('index2.html', prediction_text=f'Our client is a {predicted_value}')
-
-# return render_template('index1.html', predicted_value=f'Our client is a {predicted_value}')
+    return render_template('index.html', predicted_value=f'Our client is a {predicted_value}')

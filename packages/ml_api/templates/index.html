@@ -2,15 +2,13 @@
 <html lang="en" >
 <head>
     <meta charset="UTF-8">
-<!--	style="width: 2000px; height: 2000px"-->
     <title>Credit Classification</title>
     <!-- Link your css file which is under static/css/style.css -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 
-    <div class="login-box">
-<!--		style="top: 900px;"-->
+    <div class="login-box" style="top: 700px;">
 	<h2 class="first">Credit Classification</h2>
 	<!-- Upon submission this form will provide the values to the predict function defined in controller.py -->
 	<form action="{{ url_for('prediction_app.predict') }}" method="post">
@@ -83,7 +81,7 @@
 		    Predict
 		</button>
 	</form>
-	<!-- This will display the predicted value which is returned by the predict funtion defined in app.py -->
+	<!-- This will display the predicted value which is returned by the predict function defined in app.py -->
 	<h2 class="predicted">{{ predicted_value }}</h2>
 
 </div>
