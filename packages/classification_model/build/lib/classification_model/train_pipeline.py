@@ -21,7 +21,7 @@ def run_training():
 
     # divide train and test
     X_train, X_test, y_train, y_test = train_test_split(
-        data[config.FEATURES],
+        data[config.All_VARS],
         data[config.TARGET],
         test_size=0.2,
         random_state=0,
