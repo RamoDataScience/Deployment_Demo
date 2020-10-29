@@ -1,22 +1,36 @@
-version: 2.1
+rsion: 2.1
 
 orbs:
-  python: circleci/python@0.2.1
+  aws-s3: circleci/aws-s3@2.0.0
 
 jobs:
-  build-and-test:
-    executor: python/default
+  test_classification_model:
+    working_directory: ~/project
+    docker:
+      - image: circleci/python:3.8.3
     steps:
       - checkout
-      - python/load-cache
-      - python/install-deps
-      - python/save-cache
+
       - run:
-          command: ./manage.py test
-          name: Test
+          name: Env
+          command: |
+            virtualenv venv
+            . venv/bin/activate
+            pip install --upgrade pip
+            pip install -r packages/classification_model/requirements.txt
+
+      - aws-s3/copy:
+          arguments: '--dryrun'
+          from: 'deployment-demo-bnc/training-dataset/german_columns.csv'
+          to: 'packages/classification_model/regression_model/datasets/'
+
+      - run:
+          name: Runnning tests
+          command:
+            py.test -vv packages/classification_model/tests
 
 workflows:
-  main:
+  version: 2.1
+  test-all:
     jobs:
-      - build-and-test
-
+      - test_classification_model
