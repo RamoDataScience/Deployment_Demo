@@ -21,12 +21,12 @@ jobs:
 
       - aws-s3/copy:
           arguments: '--dryrun'
-          from: 's3://deployment-demo-bnc/training-dataset'
-          to: packages/classification_model/regression_model/datasets/german_columns.csv
+          from: 's3://deployment-demo-bnc/training-dataset/german_columns.csv'
+          to: packages/classification_model/regression_model/datasets/
 
       - run:
           name: Runnning tests
-          command:
+          command: 
             py.test -vv packages/classification_model/tests
 
 workflows:
