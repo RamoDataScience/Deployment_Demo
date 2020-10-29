@@ -21,7 +21,7 @@ jobs:
 
       - aws-s3/copy:
           arguments: '--dryrun'
-          from: 'deployment-demo-bnc/training-dataset/german_columns.csv'
+          from: 's3://deployment-demo-bnc/training-dataset /german_columns.csv'
           to: 'packages/classification_model/regression_model/datasets/'
 
       - run:
