@@ -85,12 +85,13 @@ jobs:
           to: 's3://deployment-demo-bnc/classification-model-package/'
 
 workflows:
-  version: 2.1
+  version: 2
   test-all:
     jobs:
-      - test_regression_model
+      - test_classification_model
       - test_ml_api
-      - train_and_upload_regression_model
+      - train_and_upload_classification_model
       - test_ml_api:
           requires:
-            - train_and_upload_regression_model
+            - train_and_upload_classification_model
+
