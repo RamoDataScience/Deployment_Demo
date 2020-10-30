@@ -88,4 +88,5 @@ workflows:
       - train_and_upload_classification_model
       - test_ml_api:
           requires:
-            - train_and_upload_classification_mode
+            - train_and_upload_classification_model
+
