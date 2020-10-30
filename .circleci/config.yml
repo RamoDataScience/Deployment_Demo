@@ -77,7 +77,7 @@ jobs:
 
       - aws-s3/copy:
           arguments: '--dryrun'
-          from: packages/classification_model/dist/
+          from: packages/classification_model/dist/classification_model-0.1.0-py3-none-any.whl
           to: 's3://deployment-demo-bnc/classification-model-package/'
 
 workflows:
