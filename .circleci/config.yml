@@ -76,8 +76,7 @@ jobs:
 
       - run:
           name: Show me the files
-          command: |
-            ls dist
+          command: ls
 
       - aws-s3/copy:
           arguments: '--dryrun'
