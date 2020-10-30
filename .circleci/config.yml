@@ -38,18 +38,19 @@ jobs:
           from: 's3://deployment-demo-bnc/training-dataset/german_columns.csv'
           to: packages/classification_model/classification_model/datasets/
 
+      - aws-s3/copy:
+          arguments: '--recursive'
+          from: 's3://deployment-demo-bnc/classification-model-package/'
+          to: packages/classification_model/dist/
+
       - run:
           name: Runnning tests
           command: |
             virtualenv venv
             . venv/bin/activate
             pip install --upgrade pip
-            cd packages/classification_model/dist
-            INDEX_VERSION=$(find . -type f -name "*.whl" | cut -c3-)
-            cd ~/project
-            pip install -r packages/ml_api/requirements.txt
-#            pip install --extra-index-url=$PIP_EXTRA_INDEX_URL$INDEX_VERSION
-#            py.test -vv packages/ml_api/tests
+            pip install -e packages/classification_model
+            py.test -vv packages/ml_api/tests
 
 
   train_and_upload_classification_model:
