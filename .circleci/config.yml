@@ -47,6 +47,7 @@ jobs:
             cd packages/classification_model/dist
             INDEX_VERSION=$(find . -type f -name "*.whl" | cut -c3-)
             pip install -r packages/ml_api/requirements.txt
+            cd ~/project
             py.test -vv packages/ml_api/tests
 
 
