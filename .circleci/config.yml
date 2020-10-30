@@ -1,8 +1,9 @@
 version: 2.1
 
+orbs:
+  aws-s3: circleci/aws-s3@2.0.0
+
 defaults: &defaults
-  orbs:
-    aws-s3: circleci/aws-s3@2.0.0
   docker:
     - image: circleci/python:3.8.3
   working_directory: ~/project
@@ -20,7 +21,6 @@ fetch_data: &fetch_data
     arguments: '--dryrun'
     from: 's3://deployment-demo-bnc/training-dataset/german_columns.csv'
     to: packages/classification_model/classification_model/datasets/
-
 
 jobs:
   test_classification_model:
