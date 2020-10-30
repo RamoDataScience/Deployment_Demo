@@ -11,6 +11,11 @@ jobs:
     steps:
       - checkout
 
+      - aws-s3/copy:
+          arguments: '--dryrun'
+          from: 's3://deployment-demo-bnc/training-dataset/german_columns.csv'
+          to: packages/classification_model/classification_model/datasets/
+
       - run:
           name: Runnning tests
           command: |
@@ -20,13 +25,76 @@ jobs:
             pip install -r packages/classification_model/requirements.txt
             py.test -vv packages/classification_model/tests
 
+
+  test_ml_api:
+    working_directory: ~/project
+    docker:
+      - image: circleci/python:3.8.3
+    steps:
+      - checkout
+
       - aws-s3/copy:
           arguments: '--dryrun'
           from: 's3://deployment-demo-bnc/training-dataset/german_columns.csv'
           to: packages/classification_model/classification_model/datasets/
 
+      - run:
+          name: Runnning tests
+          command: |
+            virtualenv venv
+            . venv/bin/activate
+            pip install --upgrade pip
+            pip install -r packages/ml_api/requirements.txt
+            cd packages/classification_model/dist
+            INDEX_VERSION=$(find . -type f -name "*.whl" | cut -c3-)
+            echo $PIP_EXTRA_INDEX_URL/$INDEX_VERSION
+            pip install --extra-index-url = echo $PIP_EXTRA_INDEX_URL/$INDEX_VERSION
+            py.test -vv packages/ml_api/tests
+
+
+  train_and_upload_classification_model:
+    working_directory: ~/project
+    docker:
+      - image: circleci/python:3.8.3
+    steps:
+      - checkout
+      - run:
+          name: Setup env
+          command: |
+            virtualenv venv
+            . venv/bin/activate
+            pip install -r packages/classification_model/requirements.txt
+
+      - aws-s3/copy:
+          arguments: '--dryrun'
+          from: 's3://deployment-demo-bnc/training-dataset/german_columns.csv'
+          to: packages/classification_model/classification_model/datasets/
+
+      - run:
+          name: Publish model
+          command: |
+            . venv/bin/activate
+            PYTHONPATH=./packages/classification_model python3 packages/classification_model/classification_model/train_pipeline.py
+            cd packages/classification_model
+            python3 setup.py sdist bdist_wheel
+
+      - run:
+          name: Show me the files
+          command: ls packages/classification_model/dist
+
+      - aws-s3/copy:
+          arguments: '--recursive'
+          from: packages/classification_model/dist/
+          to: 's3://deployment-demo-bnc/classification-model-package/'
+
 workflows:
-  version: 2.1
+  version: 2
   test-all:
     jobs:
       - test_classification_model
+      - train_and_upload_classification_model
+      - test_ml_api:
+          requires:
+            - train_and_upload_classification_model
+
+
