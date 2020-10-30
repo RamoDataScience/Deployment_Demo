@@ -49,9 +49,9 @@ jobs:
             virtualenv venv
             . venv/bin/activate
             pip install --upgrade pip
+            pip install -r packages/ml_api/requirements.txt
             pip install -e packages/classification_model
             py.test -vv packages/ml_api/tests
-
 
   train_and_upload_classification_model:
     working_directory: ~/project
