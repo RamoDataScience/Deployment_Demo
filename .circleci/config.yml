@@ -35,7 +35,7 @@ jobs:
       - run:
           name: Install requirements
           command: |
-            . venv/bin/activate
+            venv/bin/activate
             pip install --upgrade pip
             pip install -r packages/classification_model/requirements.txt
       - *fetch_data
@@ -79,7 +79,7 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - - *prepare_venv
+      - *prepare_venv
       - run:
           name: Install requirements
           command: |
