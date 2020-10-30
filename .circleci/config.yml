@@ -44,6 +44,8 @@ jobs:
             virtualenv venv
             . venv/bin/activate
             pip install --upgrade pip
+            cd packages/regression_model/dis
+            INDEX_VERSION = $(find . -type f -name "*.whl")
             pip install -r packages/ml_api/requirements.txt
             py.test -vv packages/ml_api/tests
 
@@ -92,6 +94,4 @@ workflows:
       - test_ml_api:
           requires:
             - train_and_upload_classification_model
-
-
 
