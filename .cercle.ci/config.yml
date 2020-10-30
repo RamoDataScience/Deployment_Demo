@@ -44,6 +44,8 @@ jobs:
             virtualenv venv
             . venv/bin/activate
             pip install --upgrade pip
+            cd packages/regression_model/dis
+            INDEX_VERSION = $(find . -type f -name "*.whl")
             pip install -r packages/ml_api/requirements.txt
             py.test -vv packages/ml_api/tests
 
@@ -74,8 +76,12 @@ jobs:
             cd packages/classification_model
             python3 setup.py sdist bdist_wheel
 
+      - run:
+          name: Show me the files
+          command: ls packages/classification_model/dist
+
       - aws-s3/copy:
-          arguments: '--dryrun'
+          arguments: '--recursive'
           from: packages/classification_model/dist/
           to: 's3://deployment-demo-bnc/classification-model-package/'
 
