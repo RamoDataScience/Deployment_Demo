@@ -48,6 +48,7 @@ jobs:
             INDEX_VERSION=$(find . -type f -name "*.whl" | cut -c3-)
             cd ~/project
             pip install -r packages/ml_api/requirements.txt
+            pip install --extra-index-url=$PIP_EXTRA_INDEX_URL$INDEX_VERSION
             py.test -vv packages/ml_api/tests
 
 
