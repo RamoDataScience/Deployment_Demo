@@ -34,7 +34,7 @@ jobs:
       - checkout
 
       - aws-s3/copy:
-          arguments: '--dryrun'
+          arguments: '--recursive'
           from: 's3://deployment-demo-bnc/training-dataset/german_columns.csv'
           to: packages/classification_model/classification_model/datasets/
 
@@ -80,7 +80,7 @@ jobs:
 
       - aws-s3/copy:
           arguments: '--dryrun'
-          from: packages/classification_model/dist/*
+          from: packages/classification_model/dist/
           to: 's3://deployment-demo-bnc/classification-model-package/'
 
 workflows:
