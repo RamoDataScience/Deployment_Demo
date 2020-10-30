@@ -1,4 +1,4 @@
-version: 2.1
+rsion: 2.1
 
 orbs:
   aws-s3: circleci/aws-s3@2.0.0
@@ -78,7 +78,7 @@ jobs:
       - aws-s3/copy:
           arguments: '--dryrun'
           from: packages/classification_model/dist/classification_model-0.1.0-py3-none-any.whl
-          to: 's3://deployment-demo-bnc/classification-model-package'
+          to: 's3://deployment-demo-bnc'
 
 workflows:
   version: 2
@@ -88,6 +88,4 @@ workflows:
       - train_and_upload_classification_model
       - test_ml_api:
           requires:
-            - train_and_upload_classification_model
-
-
+            - train_and_upload_classification_mode
