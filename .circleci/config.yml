@@ -80,7 +80,7 @@ jobs:
 
       - aws-s3/copy:
           arguments: '--dryrun'
-          from: packages/classification_model/dist/
+          from: packages/classification_model/dist/*
           to: 's3://deployment-demo-bnc/classification-model-package/'
 
 workflows:
