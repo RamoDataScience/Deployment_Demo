@@ -1,5 +1,9 @@
+--extra-index-url=$PIP_EXTRA_INDEX_URL$INDEX_VERSION
+
 # api
 flask==1.1.2
 
 # schema validation
 marshmallow==3.8.0
+
+classification-model==0.1.0
