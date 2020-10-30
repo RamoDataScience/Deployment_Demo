@@ -47,6 +47,7 @@ jobs:
             cd packages/classification_model/dist
             INDEX_VERSION = $(find . -type f -name "*.whl")
             pip install -r packages/ml_api/requirements.txt
+            pip install --extra-index-url= ${PIP_EXTRA_INDEX_URL} / ${INDEX_VERSION}
             py.test -vv packages/ml_api/tests
 
 
@@ -94,5 +95,6 @@ workflows:
       - test_ml_api:
           requires:
             - train_and_upload_classification_model
+
 
 
