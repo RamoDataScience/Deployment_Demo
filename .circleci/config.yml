@@ -73,6 +73,7 @@ jobs:
             PYTHONPATH=./packages/classification_model python3 packages/classification_model/classification_model/train_pipeline.py
             cd packages/classification_model
             python3 setup.py sdist bdist_wheel
+            ls packages/classification_model/dist/
 
       - aws-s3/copy:
           arguments: '--dryrun'
@@ -88,6 +89,4 @@ workflows:
       - test_ml_api:
           requires:
             - train_and_upload_classification_model
-
-
 
