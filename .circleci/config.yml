@@ -44,13 +44,10 @@ jobs:
             virtualenv venv
             . venv/bin/activate
             pip install --upgrade pip
-            pip install -r packages/ml_api/requirements.txt
             cd packages/classification_model/dist
             INDEX_VERSION=$(find . -type f -name "*.whl" | cut -c3-)
-            echo $INDEX_VERSION
-
-#            pip install --extra-index-url = echo $PIP_EXTRA_INDEX_URL/$INDEX_VERSION
-#            py.test -vv packages/ml_api/tests
+            pip install -r packages/ml_api/requirements.txt
+            py.test -vv packages/ml_api/tests
 
 
   train_and_upload_classification_model:
