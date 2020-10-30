@@ -71,7 +71,8 @@ jobs:
           command: |
             . venv/bin/activate
             PYTHONPATH=./packages/classification_model python3 packages/classification_model/classification_model/train_pipeline.py
-            python3 packages/classification_model/setup.py sdist bdist_wheel
+            cd packages/classification_model
+            python3 setup.py sdist bdist_wheel
 
       - aws-s3/copy:
           arguments: '--dryrun'
