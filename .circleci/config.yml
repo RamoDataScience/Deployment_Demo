@@ -76,7 +76,7 @@ jobs:
 
       - run:
           name: Show me the files
-          command: ls
+          command: ls /packages/classification_model/dist
 
       - aws-s3/copy:
           arguments: '--dryrun'
@@ -92,3 +92,7 @@ workflows:
       - test_ml_api:
           requires:
             - train_and_upload_classification_model
+
+
+
+
