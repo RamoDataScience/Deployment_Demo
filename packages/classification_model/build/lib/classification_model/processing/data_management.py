@@ -8,6 +8,7 @@ from classification_model.config import config
 from classification_model import __version__ as _version
 
 import logging
+import typing as t
 
 _logger = logging.getLogger(__name__)
 
