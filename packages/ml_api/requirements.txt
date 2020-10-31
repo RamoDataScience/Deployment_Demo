@@ -1,3 +1,7 @@
-# Install from S3
-classification-model
+-i=${PIP_INDEX_URL}
 
+# api
+flask==1.1.2
+
+# schema validation
+marshmallow==3.8.0
