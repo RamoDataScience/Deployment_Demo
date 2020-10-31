@@ -141,6 +141,7 @@ jobs:
       - restore_cache:
           keys:
             - py-deps-{{ checksum "packages/ml_api/requirements.txt" }}
+      - aws-cli/install
       - run:
           name: Runnning tests
           command: |
