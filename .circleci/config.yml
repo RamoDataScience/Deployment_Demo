@@ -155,6 +155,5 @@ fetch_data: &fetch_data
 
 workflows:
   version: 2
-  test-all:
     jobs:
       - test_ml_api
