@@ -22,7 +22,7 @@ fetch_data: &fetch_data
     from: 's3://deployment-demo-bnc/training-dataset/german_columns.csv'
     to: packages/classification_model/classification_model/datasets/
 
-#jobs:
+jobs:
 #  test_classification_model:
 #    <<: *defaults
 #    steps:
@@ -153,3 +153,7 @@ fetch_data: &fetch_data
           paths:
             - "/venv"
 
+workflows:
+  version: 2.1
+    jobs:
+      - test_ml_api
