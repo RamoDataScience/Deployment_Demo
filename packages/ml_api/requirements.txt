@@ -1,7 +1,3 @@
-classification-model==0.1.0
-
--i=https://pypi.org/simple
-
 # api
 flask==1.1.2
 
