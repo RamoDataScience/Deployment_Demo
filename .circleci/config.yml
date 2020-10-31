@@ -120,20 +120,15 @@ jobs:
 #            pip install -r packages/ml_api/requirements.txt
 #            py.test -vv packages/ml_api/tests -m differential
 
-#workflows:
-#  version: 2.1
-#  test-all:
-#    jobs:
-#      - test_classification_model
+workflows:
+  version: 2.1
+  test-all:
+    jobs:
+      - test_classification_model
 #      - test_ml_api
-#      - train_and_upload_classification_model:
+      - train_and_upload_classification_model
 #          requires:
 #            - test_classification_model
 #            - test_ml_api
 
 
-
-workflows:
-  version: 2.1
-  jobs:
-    - train_and_upload_regression_model
