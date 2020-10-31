@@ -4,6 +4,13 @@
 # api
 flask==1.1.2
 
+# AWS CLI
+awscli
+
+wheel==0.35.1
+
+twine
+
 # schema validation
 marshmallow==3.8.0
 

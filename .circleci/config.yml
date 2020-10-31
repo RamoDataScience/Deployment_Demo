@@ -146,6 +146,7 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install --upgrade pip
+            aws codeartifact login --tool pip --domain packages --repository classification-model-package
             pip install -r packages/ml_api/requirements.txt
             py.test -vv packages/ml_api/tests -m "not differential"
       - save_cache:
