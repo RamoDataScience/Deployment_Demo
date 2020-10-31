@@ -3,8 +3,8 @@ import math
 import pytest
 
 from classification_model.config import config
-from classification.predict import make_prediction
-from classification.processing.data_management import load_dataset
+from classification_model.predict import make_prediction
+from classification_model.processing.data_management import load_dataset
 
 
 @pytest.mark.differential
