@@ -1,12 +1,14 @@
 import math
 
 import pytest
+import pandas as pd
 
-from classification_model.config import config
+from classification_model.config import config as model_config
 from classification_model.predict import make_prediction
 from classification_model.processing.data_management import load_dataset
+from api import config
 
-
+@pytest.mark.skip
 @pytest.mark.differential
 def test_model_prediction_differential(*, save_file: str = 'test_data_predictions.csv'):
     """
@@ -14,10 +16,10 @@ def test_model_prediction_differential(*, save_file: str = 'test_data_prediction
     the current model with the previous model's results.
     """
     # Given
-    previous_model_df = load_dataset(f'{config.PACKAGE_ROOT}/{save_file}', label='test')
+    previous_model_df = pd.read_csv(f'{config.PACKAGE_ROOT}/{save_file}')
     previous_model_predictions = previous_model_df.predictions.values
 
-    test_data = load_dataset(file_name=f'{save_file}', label='test')
+    test_data = load_dataset(file_name=model_config.TESTING_DATA_FILE, label='test')
     multiple_test = test_data[100:200]
 
     # When
