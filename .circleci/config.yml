@@ -154,7 +154,7 @@ jobs:
             - "/venv"
 
 workflows:
-  version: 2.1
+  version: 2
   test-all:
     jobs:
       - test_ml_api
