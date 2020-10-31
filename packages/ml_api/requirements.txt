@@ -1,5 +1,3 @@
--i=${PIP_INDEX_URL}
-
 # api
 flask==1.1.2
 
