@@ -52,29 +52,29 @@ jobs:
             . venv/bin/activate
             py.test -vv packages/classification_model/tests
 
-#  test_ml_api:
-#    <<: *defaults
-#    steps:
-#      - checkout
-#      - restore_cache:
-#          keys:
-#            - py-deps-{{ checksum "packages/ml_api/requirements.txt" }}
-#      - aws-cli/install
-#      - run:
-#          name: Runnning tests
-#          command: |
-#            python3 -m venv venv
-#            . venv/bin/activate
-#            pip install --upgrade pip
-#            aws codeartifact login --tool pip --domain packages --repository classification-model-package
-#            pip install -i https://pypi.org/simple -r packages/classification_model/requirements.txt
-#            pip install -i https://pypi.org/simple -r packages/ml_api/requirements.txt
-#            pip install -r packages/ml_api/requirementsaws.txt
-#            py.test -vv packages/ml_api/tests -m "not differential"
-#      - save_cache:
-#          key: py-deps-{{ checksum "packages/ml_api/requirements.txt" }}
-#          paths:
-#            - "/venv"
+  test_ml_api:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - py-deps-{{ checksum "packages/ml_api/requirements.txt" }}
+      - aws-cli/install
+      - run:
+          name: Runnning tests
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install --upgrade pip
+            aws codeartifact login --tool pip --domain packages --repository classification-model-package
+            pip install -i https://pypi.org/simple -r packages/classification_model/requirements.txt
+            pip install -i https://pypi.org/simple -r packages/ml_api/requirements.txt
+            pip install -r packages/ml_api/requirementsaws.txt
+            py.test -vv packages/ml_api/tests -m "not differential"
+      - save_cache:
+          key: py-deps-{{ checksum "packages/ml_api/requirements.txt" }}
+          paths:
+            - "/venv"
 
 #  train_and_upload_classification_model:
 #    <<: *defaults
@@ -132,7 +132,7 @@ workflows:
     jobs:
       - test_classification_model
       - differential_tests
-#      - test_ml_api
+      - test_ml_api
 #      - train_and_upload_classification_model
 #          requires:
 #            - test_classification_model

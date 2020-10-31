@@ -1,11 +1,11 @@
 import math
 
-import pytest
-import pandas as pd
-
 from classification_model.config import config as model_config
 from classification_model.predict import make_prediction
 from classification_model.processing.data_management import load_dataset
+import pandas as pd
+import pytest
+
 from api import config
 
 @pytest.mark.differential

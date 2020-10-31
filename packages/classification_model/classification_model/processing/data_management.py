@@ -49,7 +49,7 @@ def remove_old_pipelines(*, files_to_keep) -> None:
     mapping between the package version and the model
     version to be imported and used by other applications.
     """
-
+    do_not_delete = files_to_keep + ['__init__.py']
     for model_file in config.TRAINED_MODEL_DIR.iterdir():
-        if model_file.name not in [files_to_keep, "__init__.py"]:
+        if model_file.name not in do_not_delete:
             model_file.unlink()
