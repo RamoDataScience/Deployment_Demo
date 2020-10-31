@@ -95,10 +95,12 @@ jobs:
             PYTHONPATH=./packages/classification_model python3 packages/classification_model/classification_model/train_pipeline.py
       - aws-cli/install
       - run:
-          name: Publish the model to AWS CodeArtifact
+          name: Publish the model AWS CodeArtifact
           command: |
             . venv/bin/activate
+            python3 packages/classification_model/setup.py sdist bdist_wheel
             aws codeartifact login --tool twine --domain packages --repository classification-model-package
+            twine upload --repository codeartifact packages/classification_model/dist/*
 
 #  differential_tests:
 #    <<: *defaults
@@ -118,15 +120,21 @@ jobs:
 #            pip install -r packages/ml_api/requirements.txt
 #            py.test -vv packages/ml_api/tests -m differential
 
-workflows:
-  version: 2.1
-  test-all:
-    jobs:
+#workflows:
+#  version: 2.1
+#  test-all:
+#    jobs:
 #      - test_classification_model
 #      - test_ml_api
-      - train_and_upload_classification_model
+#      - train_and_upload_classification_model:
 #          requires:
 #            - test_classification_model
 #            - test_ml_api
 
 
+
+workflows:
+  version: 2
+  test-all:
+    jobs:
+      - train_and_upload_regression_model
