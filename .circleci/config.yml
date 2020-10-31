@@ -98,9 +98,10 @@ jobs:
           name: Publish the model AWS CodeArtifact
           command: |
             . venv/bin/activate
-            python3 packages/classification_model/setup.py sdist bdist_wheel
+            cd packages/classification_model/
+            python3 setup.py sdist bdist_wheel
             aws codeartifact login --tool twine --domain packages --repository classification-model-package
-            twine upload --repository codeartifact packages/classification_model/dist/*
+            twine upload --repository codeartifact dist/*
 
 #  differential_tests:
 #    <<: *defaults
