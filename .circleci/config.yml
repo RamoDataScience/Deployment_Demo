@@ -153,6 +153,3 @@ fetch_data: &fetch_data
           paths:
             - "/venv"
 
-workflows:
-  version: 2
-    - test_ml_api
