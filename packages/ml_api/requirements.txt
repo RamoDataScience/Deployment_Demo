@@ -1,6 +1,11 @@
+--extra-index-url=${PIP_EXTRA_INDEX_URL}
+--trusted-host = ${ENDPOINT}
+
 # api
 flask==1.1.2
 
 # schema validation
 marshmallow==3.8.0
 
+# Install from S3
+classification-model==0.1.0

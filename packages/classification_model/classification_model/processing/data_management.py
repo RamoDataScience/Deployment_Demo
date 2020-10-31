@@ -13,7 +13,7 @@ _logger = logging.getLogger(__name__)
 
 def load_dataset(*, file_name: str, label: str) -> pd.DataFrame:
     _data = pd.read_csv(f"{config.DATASET_DIR}/{file_name}")
-    if label == "train" :
+    if label == "train":
         _data[config.TARGET] = LabelEncoder().fit_transform(_data[config.TARGET])
     return _data
 
