@@ -2,8 +2,6 @@
 # to specify acceptable version ranges of our project dependencies. This gives us the flexibility to keep up with small
 # updates/fixes, whilst ensuring we don't install a major update which could introduce backwards incompatible changes.
 
--i=${PIP_INDEX_URL}
-
 numpy==1.19.2
 pandas==1.1.3
 scikit-learn==0.23.2
