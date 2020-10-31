@@ -51,7 +51,7 @@ jobs:
           command: |
             . venv/bin/activate
             py.test -vv packages/classification_model/tests
-#
+
 #  test_ml_api:
 #    <<: *defaults
 #    steps:
@@ -76,58 +76,62 @@ jobs:
 #          paths:
 #            - "/venv"
 
-  train_and_upload_classification_model:
-    <<: *defaults
-    steps:
-      - checkout
-      - *prepare_venv
-      - run:
-          name: Install requirements
-          command: |
-            virtualenv venv
-            . venv/bin/activate
-            pip install -r packages/classification_model/requirements.txt
-      - *fetch_data
-      - run:
-          name: Train model
-          command: |
-            . venv/bin/activate
-            PYTHONPATH=./packages/classification_model python3 packages/classification_model/classification_model/train_pipeline.py
-      - aws-cli/install
-      - run:
-          name: Publish the model AWS CodeArtifact
-          command: |
-            . venv/bin/activate
-            cd packages/classification_model/
-            python3 setup.py sdist bdist_wheel
-            aws codeartifact login --tool twine --domain packages --repository classification-model-package
-            twine upload --repository codeartifact dist/*
-
-#  differential_tests:
+#  train_and_upload_classification_model:
 #    <<: *defaults
 #    steps:
 #      - checkout
 #      - *prepare_venv
 #      - run:
-#          name: Capturing previous model predictions
+#          name: Install requirements
 #          command: |
+#            virtualenv venv
 #            . venv/bin/activate
-#            pip install -r packages/ml_api/diff_test_requirements.txt
-#            PYTHONPATH=./packages/ml_api python3 packages/ml_api/tests/capture_model_predictions.py
+#            pip install -r packages/classification_model/requirements.txt
+#      - *fetch_data
 #      - run:
-#          name: Runnning differential tests
+#          name: Train model
 #          command: |
 #            . venv/bin/activate
-#            pip install -r packages/ml_api/requirements.txt
-#            py.test -vv packages/ml_api/tests -m differential
+#            PYTHONPATH=./packages/classification_model python3 packages/classification_model/classification_model/train_pipeline.py
+#      - run:
+#          name: Publish the model AWS CodeArtifact
+#          command: |
+#            . venv/bin/activate
+#            cd packages/classification_model/
+#            python3 setup.py sdist bdist_wheel
+#            aws codeartifact login --tool twine --domain packages --repository classification-model-package
+#            twine upload --repository codeartifact dist/*
+
+  differential_tests:
+    <<: *defaults
+    steps:
+      - checkout
+      - *prepare_venv
+      - aws-cli/install
+      - run:
+          name: Capturing previous model predictions
+          command: |
+            . venv/bin/activate
+            aws codeartifact login --tool pip --domain packages --repository classification-model-package
+            pip install -i https://pypi.org/simple -r packages/classification_model/requirements.txt
+            pip install -i https://pypi.org/simple -r packages/ml_api/difftestrequirements.txt
+            pip install -r packages/ml_api/difftestrequirementsaws.txt
+            PYTHONPATH=./packages/ml_api python3 packages/ml_api/tests/capture_model_predictions.py
+      - run:
+          name: Runnning differential tests
+          command: |
+            . venv/bin/activate
+            pip install -r packages/ml_api/requirements.txt
+            py.test -vv packages/ml_api/tests -m differential
 
 workflows:
   version: 2.1
   test-all:
     jobs:
       - test_classification_model
+      - differential_tests
 #      - test_ml_api
-      - train_and_upload_classification_model
+#      - train_and_upload_classification_model
 #          requires:
 #            - test_classification_model
 #            - test_ml_api
