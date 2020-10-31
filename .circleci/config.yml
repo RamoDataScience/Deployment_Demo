@@ -25,32 +25,32 @@ fetch_data: &fetch_data
 
 
 jobs:
-#  test_classification_model:
-#    <<: *defaults
-#    steps:
-#      - checkout
-#      - aws-s3/copy:
-#          arguments: '--dryrun'
-#          from: 's3://deployment-demo-bnc/training-dataset/german_columns.csv'
-#          to: packages/classification_model/classification_model/datasets/
-#      - *prepare_venv
-#      - run:
-#          name: Install requirements
-#          command: |
-#            . venv/bin/activate
-#            pip install --upgrade pip
-#            pip install -r packages/classification_model/requirements.txt
-#      - *fetch_data
-#      - run:
-#          name: Train model
-#          command: |
-#            . venv/bin/activate
-#            PYTHONPATH=./packages/classification_model python3 packages/classification_model/classification_model/train_pipeline.py
-#      - run:
-#          name: Run tests
-#          command: |
-#            . venv/bin/activate
-#            py.test -vv packages/classification_model/tests
+  test_classification_model:
+    <<: *defaults
+    steps:
+      - checkout
+      - aws-s3/copy:
+          arguments: '--dryrun'
+          from: 's3://deployment-demo-bnc/training-dataset/german_columns.csv'
+          to: packages/classification_model/classification_model/datasets/
+      - *prepare_venv
+      - run:
+          name: Install requirements
+          command: |
+            . venv/bin/activate
+            pip install --upgrade pip
+            pip install -r packages/classification_model/requirements.txt
+      - *fetch_data
+      - run:
+          name: Train model
+          command: |
+            . venv/bin/activate
+            PYTHONPATH=./packages/classification_model python3 packages/classification_model/classification_model/train_pipeline.py
+      - run:
+          name: Run tests
+          command: |
+            . venv/bin/activate
+            py.test -vv packages/classification_model/tests
 #
 #  test_ml_api:
 #    <<: *defaults
