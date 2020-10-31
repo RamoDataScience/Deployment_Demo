@@ -29,10 +29,6 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - aws-s3/copy:
-          arguments: '--dryrun'
-          from: 's3://deployment-demo-bnc/training-dataset/german_columns.csv'
-          to: packages/classification_model/classification_model/datasets/
       - *prepare_venv
       - run:
           name: Install requirements
