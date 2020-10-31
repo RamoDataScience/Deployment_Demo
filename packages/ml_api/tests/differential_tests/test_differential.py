@@ -8,20 +8,21 @@ from classification_model.processing.data_management import load_dataset
 
 
 @pytest.mark.differential
-def test_model_prediction_differential(*, save_file='test_data_predictions.csv'):
+def test_model_prediction_differential(*, save_file: str = 'test_data_predictions.csv'):
     """
     This test compares the prediction result similarity of
     the current model with the previous model's results.
     """
     # Given
-    previous_model_df = load_dataset(file_name='test_data_predictions.csv', label='test')
+    previous_model_df = load_dataset(f'{config.PACKAGE_ROOT}/{save_file}', label='test')
     previous_model_predictions = previous_model_df.predictions.values
-    test_data = load_dataset(file_name='test.csv', label='test')
+
+    test_data = load_dataset(file_name=f'{save_file}', label='test')
     multiple_test = test_data[100:200]
 
     # When
-    response = make_prediction(input_data=multiple_test)
-    current_model_predictions = response.get('predictions')
+    current_result = make_prediction(input_data=multiple_test)
+    current_model_predictions = current_result.get('predictions')
 
     # Then
     # diff the current model vs. the old model
