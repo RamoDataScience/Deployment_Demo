@@ -150,7 +150,7 @@ jobs:
             pip install --upgrade pip
             aws codeartifact login --tool pip --domain packages --repository classification-model-package
             pip install -i https://pypi.org/simple -r packages/classification_model/requirements.txt
-            pip install classification-model==0.1.0
+            pip install -r packages/ml_api/requirements.txt
 #            py.test -vv packages/ml_api/tests -m "not differential"
       - save_cache:
           key: py-deps-{{ checksum "packages/ml_api/requirements.txt" }}
