@@ -1,3 +1,2 @@
 -i https://pypi.org/simple -r packages/ml_api/requirements.txt
-config set global.index-url https://aws:${CODEARTIFACT_TOKEN}@packages.d.codeartifact.{AWS_DEFAULT_REGION}.amazonaws.com/pypi/classification-model-package/simple/
 -r packages/ml_api/requirementsaws.txt
