@@ -64,6 +64,8 @@ def remove_old_pipelines(*, files_to_keep: str) -> None:
         if model_file.name not in do_not_delete:
             model_file.unlink()
 
+
+def remove_old_dist() -> None:
     dist_to_keep = f"{config.DIST_SAVE_FILE}-{_version}.tar.gz"
     whl_to_keep = f"{config.DIST_SAVE_FILE}-{_version}-py3-none-any.whl"
     do_not_delete_dist = [dist_to_keep, whl_to_keep]
