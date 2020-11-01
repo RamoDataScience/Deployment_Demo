@@ -134,9 +134,5 @@ workflows:
             - test_classification_model
             - test_ml_api
             - differential_tests
-          filters:
-            branches:
-              only:
-                - master
 
 
