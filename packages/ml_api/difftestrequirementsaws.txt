@@ -1,2 +1,2 @@
-# Install from AWS CodeArtifact
-classification-model==0.1.1
+# Install the previous model version from AWS CodeArtifact
+classification-model==0.1.0
