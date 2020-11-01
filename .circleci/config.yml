@@ -123,15 +123,15 @@ jobs:
             py.test -vv packages/ml_api/tests -m differential
 
 workflows:
-  version: 2
+  version: 2.1
   test-all:
     jobs:
       - test_classification_model
       - test_ml_api
       - differential_tests
-      - train_and_upload_regression_model:
+      - train_and_upload_classification_model:
           requires:
-            - test_regression_model
+            - test_classification_model
             - test_ml_api
             - differential_tests
           filters:
