@@ -122,11 +122,11 @@ jobs:
 #            pip install -r packages/ml_api/requirementsaws.txt
 #            py.test -vv packages/ml_api/tests -m differential
 
-#workflows:
+workflows:
 #  version: 2.1
 #  test-all:
-#    jobs:
-#      - test_classification_model
+  jobs:
+    - test_classification_model
 #      - test_ml_api
 #      - train_and_upload_classification_model:
 #          requires:
