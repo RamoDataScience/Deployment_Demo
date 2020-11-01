@@ -49,7 +49,7 @@ def load_pipeline(*, file_name: str) -> Pipeline:
     return trained_model
 
 
-def remove_old_pipelines(*, files_to_keep: t.List[str]) -> None:
+def remove_old_pipelines(*, files_to_keep) -> None:
     """
     Remove old model pipelines.
 
@@ -59,7 +59,6 @@ def remove_old_pipelines(*, files_to_keep: t.List[str]) -> None:
     However, we do also include the immediate previous
     pipeline version for differential testing purposes.
     """
-    do_not_delete = files_to_keep + ['__init__.py']
     for model_file in config.TRAINED_MODEL_DIR.iterdir():
-        if model_file.name not in do_not_delete:
+        if model_file.name not in [files_to_keep, "__init__.py"]:
             model_file.unlink()
