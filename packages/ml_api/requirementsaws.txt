@@ -1,0 +1,2 @@
+# Install from AWS CodeArtifact
+classification-model==0.1.0

@@ -9,16 +9,20 @@ from classification_model import __version__ as _version
 
 import logging
 
+
 _logger = logging.getLogger(__name__)
+
 
 def load_dataset(*, file_name: str, label: str) -> pd.DataFrame:
     _data = pd.read_csv(f"{config.DATASET_DIR}/{file_name}")
-    if label == "train" :
+    if label == "train":
         _data[config.TARGET] = LabelEncoder().fit_transform(_data[config.TARGET])
     return _data
 
+
 def save_testset(*, file_name: str, data: pd.DataFrame) -> None:
     _data = data.to_csv(f"{config.DATASET_DIR}/{file_name}", index=False)
+
 
 def save_pipeline(*, pipeline_to_persist) -> None:
     """Persist the pipeline.
@@ -35,6 +39,7 @@ def save_pipeline(*, pipeline_to_persist) -> None:
     joblib.dump(pipeline_to_persist, save_path)
     _logger.info(f"saved pipeline: {save_file_name}")
 
+
 def load_pipeline(*, file_name: str) -> Pipeline:
     """Load a persisted pipeline."""
 
@@ -42,14 +47,32 @@ def load_pipeline(*, file_name: str) -> Pipeline:
     trained_model = joblib.load(filename=file_path)
     return trained_model
 
-def remove_old_pipelines(*, files_to_keep) -> None:
+
+def remove_old_pipelines(*, files_to_keep: str) -> None:
     """
     Remove old model pipelines.
+
     This is to ensure there is a simple one-to-one
     mapping between the package version and the model
     version to be imported and used by other applications.
+    However, we do also include the immediate previous
+    pipeline version for differential testing purposes.
     """
 
+    do_not_delete = [files_to_keep, '__init__.py']
     for model_file in config.TRAINED_MODEL_DIR.iterdir():
-        if model_file.name not in [files_to_keep, "__init__.py"]:
+        if model_file.name not in do_not_delete:
             model_file.unlink()
+
+
+def remove_old_dist() -> None:
+    dist_to_keep = f"{config.DIST_SAVE_FILE}-{_version}.tar.gz"
+    whl_to_keep = f"{config.DIST_SAVE_FILE}-{_version}-py3-none-any.whl"
+    do_not_delete_dist = [dist_to_keep, whl_to_keep]
+    for dist_file in config.DIST_DIR.iterdir():
+        if dist_file.name not in do_not_delete_dist:
+            dist_file.unlink()
+
+
+
+

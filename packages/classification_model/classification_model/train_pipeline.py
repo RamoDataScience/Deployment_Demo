@@ -2,7 +2,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import fbeta_score
 
 from classification_model import pipeline
-from classification_model.processing.data_management import load_dataset, save_pipeline, save_testset
+from classification_model.processing.data_management import load_dataset, save_pipeline, save_testset, remove_old_dist
 from classification_model.config import config
 from classification_model import __version__ as _version
 
@@ -33,6 +33,8 @@ def run_training():
 
     _logger.info(f"saving model version: {_version}")
     save_pipeline(pipeline_to_persist=pipeline.price_pipe)
+
+    remove_old_dist()
 
     pred = pipeline.price_pipe.predict(X_train[config.FEATURES])
     print('f2 train: %.2f' % fbeta_score(y_train, pred, beta=2))

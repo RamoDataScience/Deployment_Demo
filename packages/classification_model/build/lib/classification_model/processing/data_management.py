@@ -11,14 +11,17 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
+
 def load_dataset(*, file_name: str, label: str) -> pd.DataFrame:
     _data = pd.read_csv(f"{config.DATASET_DIR}/{file_name}")
     if label == "train" :
         _data[config.TARGET] = LabelEncoder().fit_transform(_data[config.TARGET])
     return _data
 
+
 def save_testset(*, file_name: str, data: pd.DataFrame) -> None:
     _data = data.to_csv(f"{config.DATASET_DIR}/{file_name}", index=False)
+
 
 def save_pipeline(*, pipeline_to_persist) -> None:
     """Persist the pipeline.
@@ -35,12 +38,14 @@ def save_pipeline(*, pipeline_to_persist) -> None:
     joblib.dump(pipeline_to_persist, save_path)
     _logger.info(f"saved pipeline: {save_file_name}")
 
+
 def load_pipeline(*, file_name: str) -> Pipeline:
     """Load a persisted pipeline."""
 
     file_path = config.TRAINED_MODEL_DIR / file_name
     trained_model = joblib.load(filename=file_path)
     return trained_model
+
 
 def remove_old_pipelines(*, files_to_keep) -> None:
     """
