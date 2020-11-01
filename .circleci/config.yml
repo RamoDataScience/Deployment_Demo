@@ -98,29 +98,29 @@ jobs:
             aws codeartifact login --tool twine --domain packages --repository classification-model-package
             twine upload --repository codeartifact dist/*
 
-#  differential_tests:
-#    <<: *defaults
-#    steps:
-#      - checkout
-#      - *prepare_venv
-#      - aws-cli/install
-#      - run:
-#          name: Capturing previous model predictions
-#          command: |
-#            . venv/bin/activate
-#            aws codeartifact login --tool pip --domain packages --repository classification-model-package
-#            pip install -i https://pypi.org/simple -r packages/classification_model/requirements.txt
-#            pip install -i https://pypi.org/simple -r packages/ml_api/difftestrequirements.txt
-#            pip install -r packages/ml_api/difftestrequirementsaws.txt
-#            PYTHONPATH=./packages/ml_api python3 packages/ml_api/tests/capture_model_predictions.py
-#      - run:
-#          name: Runnning differential tests
-#          command: |
-#            . venv/bin/activate
-#            pip install -i https://pypi.org/simple -r packages/classification_model/requirements.txt
-#            pip install -i https://pypi.org/simple -r packages/ml_api/requirements.txt
-#            pip install -r packages/ml_api/requirementsaws.txt
-#            py.test -vv packages/ml_api/tests -m differential
+  differential_tests:
+    <<: *defaults
+    steps:
+      - checkout
+      - *prepare_venv
+      - aws-cli/install
+      - run:
+          name: Capturing previous model predictions
+          command: |
+            . venv/bin/activate
+            aws codeartifact login --tool pip --domain packages --repository classification-model-package
+            pip install -i https://pypi.org/simple -r packages/classification_model/requirements.txt
+            pip install -i https://pypi.org/simple -r packages/ml_api/difftestrequirements.txt
+            pip install -r packages/ml_api/difftestrequirementsaws.txt
+            PYTHONPATH=./packages/ml_api python3 packages/ml_api/tests/capture_model_predictions.py
+      - run:
+          name: Runnning differential tests
+          command: |
+            . venv/bin/activate
+            pip install -i https://pypi.org/simple -r packages/classification_model/requirements.txt
+            pip install -i https://pypi.org/simple -r packages/ml_api/requirements.txt
+            pip install -r packages/ml_api/requirementsaws.txt
+            py.test -vv packages/ml_api/tests -m differential
 
 workflows:
   version: 2.1
