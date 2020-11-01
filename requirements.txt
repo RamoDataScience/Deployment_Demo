@@ -1,1 +1,1 @@
--r packages/ml_api/requirements.txt
+-r -i https://pypi.org/simple packages/ml_api/requirements.txt
