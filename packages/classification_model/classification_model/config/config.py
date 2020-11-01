@@ -9,13 +9,18 @@ pd.options.display.max_rows = 10
 pd.options.display.max_columns = 10
 
 PACKAGE_ROOT = pathlib.Path(classification_model.__file__).resolve().parent
+DIST_ROOT = pathlib.Path(classification_model.__file__).resolve()
+
 TRAINED_MODEL_DIR = PACKAGE_ROOT / "trained_models"
 DATASET_DIR = PACKAGE_ROOT / "datasets"
+DIST_DIR = DIST_ROOT / "dist"
 
 # data
 DATA_FILE = "german_columns.csv"
 TESTING_DATA_FILE = "test.csv"
+
 TARGET = 'customer_classification'
+DIST_SAVE_FILE = 'classification_model'
 
 
 # variables

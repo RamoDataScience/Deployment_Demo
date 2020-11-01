@@ -8,7 +8,6 @@ from classification_model.config import config
 from classification_model import __version__ as _version
 
 import logging
-import typing as t
 
 
 _logger = logging.getLogger(__name__)
@@ -64,5 +63,14 @@ def remove_old_pipelines(*, files_to_keep: str) -> None:
     for model_file in config.TRAINED_MODEL_DIR.iterdir():
         if model_file.name not in do_not_delete:
             model_file.unlink()
+
+    dist_to_keep = f"{config.DIST_SAVE_FILE}-{_version}.tar.gz"
+    whl_to_keep = f"{config.DIST_SAVE_FILE}-{_version}-py3-none-any.whl"
+    do_not_delete_dist = [dist_to_keep, whl_to_keep]
+    for dist_file in config.DIST_DIR.iterdir():
+        if dist_file.name not in do_not_delete_dist:
+            dist_file.unlink()
+
+
 
 
