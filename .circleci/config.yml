@@ -124,9 +124,12 @@ jobs:
 
 workflows:
   version: 2.1
-#  test-all:
+  test-all:
     jobs:
       - train_and_upload_classification_model
+      - differential_tests:
+          requires:
+            - train_and_upload_classification_model
 #      - test_classification_model
 #      - test_ml_api
 #      - train_and_upload_classification_model:
