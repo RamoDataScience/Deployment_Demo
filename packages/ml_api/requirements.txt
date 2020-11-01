@@ -6,3 +6,4 @@ marshmallow==3.8.0
 
 # Deployment
 gunicorn
+tool
