@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: classification-model
-Version: 0.1.1
+Version: 0.1.0
 Summary: Train and deploy classification model.
 Home-page: https://github.com/RamoDataScience/Deployment_Demo
 Author: Azzouz Omar Zayen
